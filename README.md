@@ -30,5 +30,5 @@ npm install
 ### 4. Running tests
 
 ```bash
-npm run test:headless
+npx playwright test
 ```
