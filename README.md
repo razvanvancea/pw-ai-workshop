@@ -11,8 +11,10 @@ By the end of this session, you'll have a ready-to-extend project template and h
 ### 1. Prerequisites
 
 - Node.js (recommended v18+)
-- npm (or yarn)
+- npm
 - Git
+- Google Chrome browser
+- Visual Studio Code
 
 ### 2. Clone the repository
 
