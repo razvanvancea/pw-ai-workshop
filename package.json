@@ -10,6 +10,7 @@
     "show:report": "npx playwright show-report",
     "test:ui": "npx playwright test --ui",
     "test:smoke": "npx playwright test -g '@smoke'",
+    "codegen": "npx playwright codegen https://www.saucedemo.com/",
     "format": "npx prettier --write ."
   },
   "keywords": [],
