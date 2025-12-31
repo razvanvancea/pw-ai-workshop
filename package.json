@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test:headless": "npx playwright test",
     "format": "npx prettier --write ."
   },
   "keywords": [],
