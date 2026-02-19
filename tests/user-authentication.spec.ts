@@ -12,8 +12,11 @@ test.describe('user authentication test suite', () => {
   });
 
   test('logout test', async ({ page }) => {
-    await page.locator('[data-test="username"]').fill('standard_user');
-    await page.locator('[data-test="password"]').fill('secret_sauce');
+    await test.step('fill login form with email and psw', async () => {
+      await page.locator('[data-test="username"]').fill('standard_user');
+      await page.locator('[data-test="password"]').fill('secret_sauce');
+    });
+
     await page.locator('[data-test="login-button"]').click();
     await page.getByRole('button', { name: 'Open Menu' }).click();
     await expect(page.locator('[data-test="logout-sidebar-link"]')).toContainText('Logout');
