@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "format": "npx prettier --write .",
-    "pretest": "tsc --noEmit && eslint tests/**"
+    "lint": "tsc --noEmit && eslint tests/**"
   },
   "keywords": [],
   "author": "RV",
