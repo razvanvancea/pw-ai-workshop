@@ -11,7 +11,7 @@
     "test:ui": "npx playwright test --ui",
     "test:smoke": "npx playwright test -g '@smoke'",
     "format": "npx prettier --write .",
-    "pretest": "tsc --noEmit && eslint tests/**"
+    "lint": "tsc --noEmit && eslint tests/**"
   },
   "keywords": [],
   "author": "RV",
