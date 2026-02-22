@@ -11,7 +11,7 @@
     "test:ui": "npx playwright test --ui",
     "test:smoke": "npx playwright test -g '@smoke'",
     "format": "npx prettier --write .",
-    "pretest": "tsc --noEmit && eslint tests/**",
+    "lint": "tsc --noEmit && eslint tests/**",
     "codegen": "npx playwright codegen https://www.saucedemo.com/"
   },
   "keywords": [],
@@ -19,6 +19,7 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@faker-js/faker": "^10.3.0",
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.0.3",
     "eslint": "^9.39.2",
