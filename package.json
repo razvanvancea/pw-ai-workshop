@@ -12,7 +12,7 @@
     "test:smoke": "npx playwright test -g '@smoke'",
     "format": "npx prettier --write .",
     "lint": "tsc --noEmit && eslint tests/**",
-    "codegen": "npx playwright codegen https://www.saucedemo.com/"
+    "codegen": "npx playwright codegen https://tai-shop.razvanvancea.ro"
   },
   "keywords": [],
   "author": "RV",
