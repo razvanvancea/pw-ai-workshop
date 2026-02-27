@@ -1,107 +1,86 @@
-# Copilot Instructions - Playwright AI Workshop
+---
+description: 'Playwright test generation instructions'
+applyTo: '**'
+---
 
-## Project Overview
+## Test Writing Guidelines
 
-This is a **Playwright test automation framework** targeting SauceLabs demo app (`https://www.saucedemo.com/`). The project demonstrates scalable test architecture patterns with AI-assisted test generation and maintenance workflows. Tests use TypeScript with Page Object Model (POM) pattern.
+### Code Quality Standards
+- **Locators**: Prioritize user-facing, role-based locators (`getByRole`, `getByLabel`, `getByText`, etc.) for resilience and accessibility. Use `test.step()` to group interactions and improve test readability and reporting.
+- **Assertions**: Use auto-retrying web-first assertions. These assertions start with the `await` keyword (e.g., `await expect(locator).toHaveText()`). Avoid `expect(locator).toBeVisible()` unless specifically testing for visibility changes.
+- **Timeouts**: Rely on Playwright's built-in auto-waiting mechanisms. Avoid hard-coded waits or increased default timeouts.
+- **Clarity**: Use descriptive test and step titles that clearly state the intent. Add comments only to explain complex logic or non-obvious interactions.
 
-## Architecture
 
-### Key Structure
-- **`tests/`** - Test specifications organized by feature (e.g., `user-authentication.spec.ts`, `order.spec.ts`)
-- **`pages/`** - Page Object classes encapsulating UI interactions (e.g., `LoginPage`)
-- **`.github/instructions/`** - Detailed coding standards (`playwright.instructions.md`)
-- **`playwright.config.ts`** - Test configuration with trace, screenshot, and video settings
+### Test Structure
+- **Imports**: Start with `import { test, expect } from '@playwright/test';`.
+- **Organization**: Group related tests for a feature under a `test.describe()` block.
+- **Hooks**: Use `beforeEach` for setup actions common to all tests in a `describe` block (e.g., navigating to a page).
+- **Titles**: Follow a clear naming convention, such as `Feature - Specific action or scenario`.
 
-### Page Object Model Pattern
-Use dedicated page classes (`pages/*.page.ts`) to:
-- Encapsulate element locators as properties
-- Provide high-level action methods (e.g., `doLogin()`)
-- Enable test reuse and maintainability
 
-Example: `LoginPage` provides `doLogin(email, password)` method hiding selector details.
+### File Organization
+- **Location**: Store all test files in the `tests/` directory.
+- **Naming**: Use the convention `<feature-or-page>.spec.ts` (e.g., `login.spec.ts`, `search.spec.ts`).
+- **Scope**: Aim for one test file per major application feature or page.
 
-## Test Writing Standards
+### Assertion Best Practices
+- **UI Structure**: Use `toMatchAriaSnapshot` to verify the accessibility tree structure of a component. This provides a comprehensive and accessible snapshot.
+- **Element Counts**: Use `toHaveCount` to assert the number of elements found by a locator.
+- **Text Content**: Use `toHaveText` for exact text matches and `toContainText` for partial matches.
+- **Navigation**: Use `toHaveURL` to verify the page URL after an action.
 
-### Locators
-Prefer **role-based locators** for resilience:
+
+## Example Test Structure
+
 ```typescript
-// Good - accessible, maintainable
-page.getByRole('button', { name: 'Open Menu' })
+import { test, expect } from '@playwright/test';
 
-// Acceptable - data attributes
-page.locator('[data-test="login-button"]')
+test.describe('Movie Search Feature', () => {
+  test.beforeEach(async ({ page }) => {
+    // Navigate to the application before each test
+    await page.goto('https://debs-obrien.github.io/playwright-movies-app');
+  });
 
-// Avoid - brittle CSS paths
-page.locator('#login-form > div > button')
-```
+  test('Search for a movie by title', async ({ page }) => {
+    await test.step('Activate and perform search', async () => {
+      await page.getByRole('search').click();
+      const searchInput = page.getByRole('textbox', { name: 'Search Input' });
+      await searchInput.fill('Garfield');
+      await searchInput.press('Enter');
+    });
 
-### Assertions
-- Use **auto-retrying assertions** with `await`: `await expect(locator).toContainText('text')`
-- For visibility: `await expect(locator).toBeVisible()`
-- For counts: `await expect(page.getByRole('listitem')).toHaveCount(3)`
-- Avoid hard-coded waits; rely on Playwright's built-in waiting
-
-### Test Organization
-- Group related tests in `test.describe()` blocks
-- Use `test.beforeEach()` for common setup (navigation, login)
-- Use `test.step()` for complex interactions (for improved reporting)
-- Follow naming: `<Feature> - <Scenario>` (e.g., "User Authentication - Login Test")
-
-### Patterns from Codebase
-```typescript
-// Current pattern: Initialize page class in test
-test('logout test', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.doLogin('standard_user', 'secret_sauce');
-  // ... continue with assertions
+    await test.step('Verify search results', async () => {
+      // Verify the accessibility tree of the search results
+      await expect(page.getByRole('main')).toMatchAriaSnapshot(`
+        - main:
+          - heading "Garfield" [level=1]
+          - heading "search results" [level=2]
+          - list "movies":
+            - listitem "movie":
+              - link "poster of The Garfield Movie The Garfield Movie rating":
+                - /url: /playwright-movies-app/movie?id=tt5779228&page=1
+                - img "poster of The Garfield Movie"
+                - heading "The Garfield Movie" [level=2]
+      `);
+    });
+  });
 });
 ```
 
-## Development Workflows
+## Test Execution Strategy
 
-### Running Tests
-```bash
-npm run test:headless    # Default: serial execution, CI-like
-npm run test:headed      # Visual mode for debugging
-npm run test:debug       # Playwright inspector
-npm run test:ui          # Interactive UI mode
-npm run test:smoke       # Filter tests tagged with @smoke
-npm run show:report      # View HTML test report
-```
+1. **Initial Run**: Execute tests with `npx playwright test --project=chromium`
+2. **Debug Failures**: Analyze test failures and identify root causes
+3. **Iterate**: Refine locators, assertions, or test logic as needed
+4. **Validate**: Ensure tests pass consistently and cover the intended functionality
+5. **Report**: Provide feedback on test results and any issues discovered
 
-### Key Configuration Settings
-- **Timeout**: 60s per test, 15s per assertion (explicit waits rare)
-- **Parallel**: Enabled locally; CI runs serially (workers=1)
-- **Artifacts**: Screenshots on failure, traces retained on failure, videos off by default
-- **Retries**: 0 locally, 2 on CI
+## Quality Checklist
 
-### Code Generation
-```bash
-npm run codegen  # Interactive tool to generate test code against SauceLabs demo
-```
-
-## Project-Specific Conventions
-
-1. **Test Site**: All tests target `https://www.saucedemo.com/` (SauceLabs demo)
-2. **Test Account**: Use `standard_user` / `secret_sauce` for login tests
-3. **Data Attributes**: SauceLabs demo uses `data-test` attributes for reliable selectors
-4. **No baseURL Config**: Tests use full URLs in `page.goto()`
-5. **Named Scripts**: Use npm scripts (not raw `npx playwright` commands)
-
-## AI Agent Guidance
-
-When generating or refactoring tests:
-1. **Check [playwright.instructions.md](./instructions/playwright.instructions.md)** for detailed standards
-2. **Extract POM methods** for repeated interactions - don't inline complex flows
-3. **Use `test.step()`** for multi-step scenarios (improves reports, aids debugging)
-4. **Verify locators** against actual SauceLabs demo structure - use `npm run codegen` to validate
-5. **Avoid test interdependencies** - each test should be independently runnable
-6. **Prefer existing page classes** over creating new ones when possible
-
-## Common Tasks
-
-- **Add new test**: Create in `tests/<feature>.spec.ts`, follow existing structure
-- **Create page object**: Add to `pages/<page-name>.page.ts`, export class
-- **Debug failing test**: Use `npm run test:debug` or `npm run test:headed`
-- **Update selectors**: Validate with `npm run codegen` before committing
-- **Format code**: Run `npm run format` before commit (Prettier configured)
+Before finalizing tests, ensure:
+- [ ] All locators are accessible and specific and avoid strict mode violations
+- [ ] Tests are grouped logically and follow a clear structure
+- [ ] Assertions are meaningful and reflect user expectations
+- [ ] Tests follow consistent naming conventions
+- [ ] Code is properly formatted and commented
