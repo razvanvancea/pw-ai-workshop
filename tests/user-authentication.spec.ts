@@ -15,8 +15,7 @@ test.describe('user authentication test suite', () => {
   test('logout test', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.doLogin('admin@admin.com', 'admin123');
-    await expect(page.locator('[data-test="logout-sidebar-link"]')).toContainText('Logout');
-    await page.locator('[data-test="logout-sidebar-link"]').click();
-    await expect(page.locator('[data-test="login-button"]')).toBeVisible();
+    await loginPage.logoutBtn.click();
+    await expect(page.locator('#loginSection')).toContainText('Welcome back');
   });
 });
