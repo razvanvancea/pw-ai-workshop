@@ -9,8 +9,8 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.emailInput = page.getByRole('textbox', { name: 'Email Address' })
-    this.passwordInput = page.getByRole('textbox', { name: 'Password' })
+    this.emailInput = page.getByRole('textbox', { name: 'Email Address' });
+    this.passwordInput = page.getByRole('textbox', { name: 'Password' });
     this.loginButton = page.getByTestId('submitBtn');
     this.logoutBtn = page.getByRole('link', { name: 'Log Out' });
   }
