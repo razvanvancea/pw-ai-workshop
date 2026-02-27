@@ -9,19 +9,23 @@ Playwright + TypeScript E2E test framework targeting **https://tai-shop.razvanva
 
 ## Architecture & Key Files
 
-- `tests/` — All test files, named `<feature>.spec.ts` (one file per feature/page)
-- `pages/` — Page Object Model classes (see `pages/login.page.ts` for the established pattern)
+- `tests/` — Test files, named `<feature>.spec.ts` (one file per feature/page)
+- `pages/` — Page Object Model classes, named `<feature>.page.ts` (see `pages/login.page.ts`)
 - `playwright.config.ts` — Custom `testIdAttribute: 'test-data'` (not the default `data-testid`), 60s test timeout, 15s expect timeout
+- Base URL is configurable: `BASE_URL` env var, defaults to `https://tai-shop.razvanvancea.ro/`
+- CI behavior: 2 retries, 1 worker, `forbidOnly`; locally: 0 retries, unlimited workers
+- Artifacts: traces retained on failure, screenshots only on failure, video off
 
 ### Page Object Pattern
 
-Page objects live in `pages/`, export a class that takes `Page` in constructor, expose locators as `readonly` properties, and encapsulate reusable workflows as `async` methods. Example from `pages/login.page.ts`:
+Page objects export a class taking `Page` in constructor, expose locators as `readonly` properties, and encapsulate workflows as `async` methods. Use `type` imports for Playwright types:
 
 ```typescript
+import { expect, type Locator, type Page } from '@playwright/test';
+
 export class LoginPage {
   readonly page: Page;
   readonly emailInput: Locator;
-  // ...locators as readonly properties
   constructor(page: Page) {
     this.page = page;
     this.emailInput = page.getByRole('textbox', { name: 'Email Address' });
@@ -30,7 +34,7 @@ export class LoginPage {
 }
 ```
 
-When creating new page objects, follow this same structure. Import and instantiate them in tests: `const loginPage = new LoginPage(page);`
+Instantiate in tests: `const loginPage = new LoginPage(page);`
 
 ## Test Writing Rules
 
@@ -47,11 +51,11 @@ When creating new page objects, follow this same structure. Import and instantia
 ### Structure
 - `import { test, expect } from '@playwright/test';`
 - Group related tests under `test.describe()`
-- Use `beforeEach` for common setup (e.g., `page.goto`)
+- Use `beforeEach` for common setup (e.g., `page.goto('/')`)
 - Tag smoke tests with `@smoke` in the test title (run via `npm run test:smoke`)
 
 ### ESLint Enforcement
-The project enforces `@typescript-eslint/no-floating-promises` and `@typescript-eslint/await-thenable`. Every Playwright call returning a Promise **must** be awaited. Unhandled promises will fail linting.
+The project enforces `@typescript-eslint/no-floating-promises` and `@typescript-eslint/await-thenable`. Every Playwright call returning a Promise **must** be awaited. Unhandled promises will fail linting (`npm run lint`).
 
 ## Developer Commands
 
@@ -63,8 +67,8 @@ The project enforces `@typescript-eslint/no-floating-promises` and `@typescript-
 | `npm run test:ui` | Open Playwright UI mode |
 | `npm run test:smoke` | Run only `@smoke`-tagged tests |
 | `npm run show:report` | Open HTML report |
-| `npm run codegen` | Launch Playwright codegen |
-| `npm run lint` | TypeScript check + ESLint |
+| `npm run codegen` | Launch Playwright codegen against target site |
+| `npm run lint` | TypeScript type-check + ESLint |
 | `npm run format` | Prettier formatting |
 
 ## Available Libraries
