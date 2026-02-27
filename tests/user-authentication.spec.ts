@@ -13,14 +13,18 @@ test.describe('User authentication test suite', () => {
   });
 
   test('logout test', async ({ page }) => {
-    await page.locator('[data-test="username"]').click();
-    await page.locator('[data-test="username"]').fill('standard_user');
-    await page.locator('[data-test="username"]').press('Tab');
-    await page.locator('[data-test="password"]').fill('secret_sauce');
-    await page.locator('[data-test="login-button"]').click();
-    await page.getByRole('button', { name: 'Open Menu' }).click();
-    await expect(page.locator('[data-test="logout-sidebar-link"]')).toContainText('Logout');
-    await page.locator('[data-test="logout-sidebar-link"]').click();
-    await expect(page.locator('[data-test="login-button"]')).toBeVisible();
+    await page.locator('div').filter({ hasText: 'Welcome back Sign in to your' }).nth(4).click();
+    await page.locator('div').filter({ hasText: 'Welcome back Sign in to your' }).nth(4).click();
+    await page.getByRole('textbox', { name: 'Email Address' }).click();
+    await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
+    await page.getByRole('textbox', { name: 'Password' }).click();
+    await page.getByRole('textbox', { name: 'Password' }).fill('');
+    await page.getByRole('textbox', { name: 'Email Address' }).click();
+    await page.getByRole('textbox', { name: 'Email Address' }).press('Tab');
+    await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+    await page.getByRole('button', { name: 'Sign In' }).click();
+    await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
+    await page.getByRole('link', { name: 'Log Out' }).click();
+    await expect(page.locator('#loginSection')).toContainText('Welcome back');
   });
 });
