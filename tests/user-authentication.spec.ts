@@ -13,6 +13,6 @@ test.describe('User authentication test suite', () => {
     await expect(page.locator('[data-test="title"]')).toBeVisible();
 
     // Docs: https://fakerjs.dev/api/
-    console.log(faker.person.fullName());
+    console.log('Person name: ' + faker.person.fullName());
   });
 });
