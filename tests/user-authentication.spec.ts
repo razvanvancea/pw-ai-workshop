@@ -3,14 +3,14 @@ import { faker } from '@faker-js/faker';
 
 test.describe('User authentication test suite', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
+    await page.goto('https://tai-shop.razvanvancea.ro/');
   });
 
   test('login test', async ({ page }) => {
-    await page.locator('[data-test="username"]').fill('standard_user');
-    await page.locator('[data-test="password"]').fill('secret_sauce');
-    await page.locator('[data-test="login-button"]').click();
-    await expect(page.locator('[data-test="title"]')).toBeVisible();
+    await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
+    await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+    await page.getByTestId('submitBtn').click();
+    await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
 
     // Docs: https://fakerjs.dev/api/
     console.log('Person name: ' + faker.person.fullName());
