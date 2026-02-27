@@ -12,7 +12,7 @@ test.describe('User authentication test suite', () => {
     await page.locator('[data-test="login-button"]').click();
     await expect(page.locator('[data-test="title"]')).toBeVisible();
 
-     // Docs: https://fakerjs.dev/api/
-  console.log(faker.person.fullName());
+    // Docs: https://fakerjs.dev/api/
+    console.log(faker.person.fullName());
   });
 });
