@@ -12,9 +12,7 @@ test.describe('User authentication test suite', () => {
 
   test('logout test', async ({ page }) => {
     const loginPage = new LoginPage(page);
-    await test.step('fill login form with email and psw', async () => {
-      await loginPage.doLogin('standard_user', 'secret_sauce');
-    });
+    await loginPage.doLogin('standard_user', 'secret_sauce');
     await page.getByRole('button', { name: 'Open Menu' }).click();
     await expect(page.locator('[data-test="logout-sidebar-link"]')).toContainText('Logout');
     await page.locator('[data-test="logout-sidebar-link"]').click();
