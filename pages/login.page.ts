@@ -5,20 +5,20 @@ export class LoginPage {
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
-  readonly productsHeaderText: Locator;
+  readonly logoutBtn: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.emailInput = page.locator('[data-test="username"]');
-    this.passwordInput = page.locator('[data-test="password"]');
-    this.loginButton = page.locator('[data-test="login-button"]');
-    this.productsHeaderText = page.locator('[data-test="title"]');
+    this.emailInput = page.getByRole('textbox', { name: 'Email Address' })
+    this.passwordInput = page.getByRole('textbox', { name: 'Password' })
+    this.loginButton = page.getByTestId('submitBtn');
+    this.logoutBtn = page.getByRole('link', { name: 'Log Out' });
   }
 
   async doLogin(email: string, password: string) {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
-    await expect(this.productsHeaderText).toBeVisible();
+    await expect(this.logoutBtn).toBeVisible();
   }
 }
