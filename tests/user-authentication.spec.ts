@@ -8,7 +8,7 @@ test.describe('User authentication test suite', () => {
   test('login test', async ({ page }) => {
     await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
     await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
-    await page.getByRole('button', { name: 'Sign In' }).click();
+    await page.getByTestId('submitBtn').click();
     await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
   });
 });
