@@ -13,6 +13,6 @@ test.describe('User authentication test suite', () => {
     await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
 
     // Docs: https://fakerjs.dev/api/
-    console.log('Person name: ' + faker.person.fullName());
+    console.log('Random email: ' + faker.internet.email());
   });
 });
