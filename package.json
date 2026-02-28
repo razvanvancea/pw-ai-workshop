@@ -10,9 +10,10 @@
     "show:report": "npx playwright show-report",
     "test:ui": "npx playwright test --ui",
     "test:smoke": "npx playwright test -g '@smoke'",
+    "test": "npx playwright test",
     "format": "npx prettier --write .",
     "lint": "tsc --noEmit && eslint tests/**",
-    "codegen": "npx playwright codegen https://www.saucedemo.com/"
+    "codegen": "npx playwright codegen https://tai-shop.razvanvancea.ro"
   },
   "keywords": [],
   "author": "RV",
