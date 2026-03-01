@@ -31,7 +31,7 @@ on:
   push:
     branches: [main, master]
   workflow_dispatch:
-    description: "manual trigger"
+    description: 'manual trigger'
   pull_request:
     branches: [main, master]
     # https://crontab.guru/

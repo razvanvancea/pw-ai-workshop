@@ -15,4 +15,12 @@ test.describe('User authentication test suite', () => {
     // Docs: https://fakerjs.dev/api/
     console.log('Random email: ' + faker.internet.email());
   });
+
+  test('recover password', async ({ page }) => {
+    const randomEmail = faker.internet.email();
+    await page.getByRole('link', { name: 'Forgot your password?' }).click();
+    await page.getByRole('textbox', { name: 'Email Address' }).fill(randomEmail);
+    await page.getByRole('button', { name: 'Send Reset Link' }).click();
+    await expect(page.locator('#resetMessage')).toContainText('✓ Check your email');
+  });
 });
