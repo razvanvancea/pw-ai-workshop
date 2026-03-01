@@ -1,7 +1,7 @@
 ---
 name: pw-code-reviewer-specialist
 description: Reviews ONLY the changes on the current branch compared to origin/main with a focus on TypeScript + Playwright test automation standards, design patterns, maintainability, and reliability.
-tools: ['read', 'search', 'edit', 'execute']
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'context7/*', 'playwright/*', 'agent', 'playwright-test/*', 'todo']
 disable-model-invocation: true
 target: vscode
 ---
