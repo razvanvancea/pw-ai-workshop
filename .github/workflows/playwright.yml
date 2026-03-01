@@ -32,10 +32,10 @@ on:
     branches: [main, master]
   workflow_dispatch:
     description: 'manual trigger'
-  pull_request:
-    branches: [main, master]
-    # https://crontab.guru/
-    # below cron config will run the workflow at 16:30 on the 3rd day of every month
+  # pull_request:
+  #   branches: [main, master]
+  # https://crontab.guru/
+  # below cron config will run the workflow at 16:30 on the 3rd day of every month
   schedule:
     - cron: '30 16 3 * *' # At 03:00 on Monday
 jobs:
