@@ -4,6 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test:headless": "npx playwright test --workers=1",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --headed --debug",
+    "show:report": "npx playwright show-report",
+    "test:ui": "npx playwright test --ui",
+    "test:smoke": "npx playwright test -g '@smoke'",
     "test": "npx playwright test",
     "format": "npx prettier --write .",
     "lint": "tsc --noEmit && eslint tests/**"
