@@ -1,3 +1,8 @@
+note: prompt example for pw-planner agent: Use the Playwright MCP server to browse https://tai-shop.razvanvancea.ro
+and generate a .md test plan containing the top 5 highest-risk and most important missing automated test cases.
+
+
+
 # Top 5 High-Risk Missing Test Cases - TAI Shop
 
 ## Application Overview
