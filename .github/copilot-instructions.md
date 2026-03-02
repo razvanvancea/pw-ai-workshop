@@ -30,7 +30,7 @@ export class LoginPage {
     this.page = page;
     this.emailInput = page.getByRole('textbox', { name: 'Email Address' });
   }
-  async doLogin(email: string, password: string) { /* ... */ }
+  async login(email: string, password: string) { /* ... */ }
 }
 ```
 
