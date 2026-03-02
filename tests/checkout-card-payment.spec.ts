@@ -2,7 +2,10 @@
 import { test, expect } from '../fixtures/pages';
 
 test.describe('Checkout - Card Payment', () => {
-  test('should complete full order placement via Online Card Payment', async ({ page, loginPage }) => {
+  test('should complete full order placement via Online Card Payment', async ({
+    page,
+    loginPage,
+  }) => {
     // 1. Navigate to https://tai-shop.razvanvancea.ro and log in with admin@admin.com / admin123
     await test.step('Navigate and log in', async () => {
       await page.goto('https://tai-shop.razvanvancea.ro');
@@ -14,7 +17,9 @@ test.describe('Checkout - Card Payment', () => {
     await test.step('Add Red Lipstick to cart', async () => {
       await page.getByRole('button', { name: 'ADD TO CART' }).nth(3).click();
       await expect(page.getByRole('button', { name: 'REMOVE' })).toBeVisible();
-      await expect(page.locator('.cart-item-title').filter({ hasText: 'Red Lipstick' })).toBeVisible();
+      await expect(
+        page.locator('.cart-item-title').filter({ hasText: 'Red Lipstick' })
+      ).toBeVisible();
       await expect(page.locator('.cart-price').filter({ hasText: '$12.99' })).toBeVisible();
     });
 
