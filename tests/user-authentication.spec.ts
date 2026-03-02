@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('User authentication test suite', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('https://tai-shop.razvanvancea.ro');
   });
 
   test('login test', async ({ page }) => {
