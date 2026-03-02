@@ -1,17 +1,17 @@
-import { test, expect } from '@playwright/test';
+import { test } from '../fixtures/pages';
 
-test.describe('User authentication test suite', () => {
+test.describe('Order management test suite', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://tai-shop.razvanvancea.ro');
   });
 
-  test('add to cart test', async ({ page }) => {
-    // use the debugger and start the 'add to cart' test from here
-    // await page.pause();
-    await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
-    await page.getByTestId('submitBtn').click();
-    await page.getByRole('button', { name: 'ADD TO CART' }).first().click();
-    await expect(page.getByRole('button', { name: 'REMOVE' })).toBeVisible();
+  test('add to cart test @smoke', async ({ loginPage, productPage }) => {
+    await test.step('Login to the application', async () => {
+      await loginPage.login('admin@admin.com', 'admin123');
+    });
+
+    await test.step('Add product to cart', async () => {
+      await productPage.addFirstProductToCart();
+    });
   });
 });

@@ -2,8 +2,8 @@
 name: playwright-test-healer
 description: Use this agent when you need to debug and fix failing Playwright tests
 tools:
-  ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'context7/*', 'playwright/*', 'agent', 'playwright-test/*', 'todo']
-model: Claude Sonnet 4
+  ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'context7/*', 'context7/*', 'playwright/*', 'agent', 'playwright-test/*', 'ms-azuretools.vscode-containers/containerToolsConfig', 'todo']
+model: Claude Sonnet 4.6
 mcp-servers:
   playwright-test:
     type: stdio
