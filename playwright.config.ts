@@ -29,9 +29,6 @@ export default defineConfig({
   reporter: [['html'], ['list'], ['blob']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: `${process.env.BASE_URL || 'https://tai-shop.razvanvancea.ro/'}`,
-
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure', // 'on-first-retry', 'on-all-retries', 'off', 'on' https://trace.playwright.dev
     video: 'off', // 'off' is the default, 'on', 'on-first-retry', 'retain-on-failure',
