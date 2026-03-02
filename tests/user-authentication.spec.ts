@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
 
-test.describe('user authentication test suite', () => {
+test.describe('User authentication test suite', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://tai-shop.razvanvancea.ro');
   });
 
   test('login test', async ({ page }) => {
     const loginPage = new LoginPage(page);
-    await loginPage.doLogin('admin@admin.com', 'admin123');
+    await loginPage.login('admin@admin.com', 'admin123');
 
     await test.step('Verify logout link is visible', async () => {
       await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
@@ -17,7 +17,7 @@ test.describe('user authentication test suite', () => {
 
   test('logout test', async ({ page }) => {
     const loginPage = new LoginPage(page);
-    await loginPage.doLogin('admin@admin.com', 'admin123');
+    await loginPage.login('admin@admin.com', 'admin123');
     await loginPage.logoutBtn.click();
     await expect(page.locator('#loginSection')).toContainText('Welcome back');
   });
