@@ -4,7 +4,7 @@ import { ProductPage } from '../pages/product.page';
 
 test.describe('Order management test suite', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('https://tai-shop.razvanvancea.ro');
   });
 
   test('add to cart test @smoke', async ({ page }) => {
