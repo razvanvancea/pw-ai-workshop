@@ -10,7 +10,7 @@ test.describe('Order management test suite', () => {
   test('add to cart test @smoke', async ({ page }) => {
     await test.step('Login to the application', async () => {
       const loginPage = new LoginPage(page);
-      await loginPage.doLogin('admin@admin.com', 'admin123');
+      await loginPage.login('admin@admin.com', 'admin123');
     });
 
     await test.step('Add product to cart', async () => {
