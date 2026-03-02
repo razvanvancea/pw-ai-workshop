@@ -22,16 +22,11 @@ test.describe('User authentication test suite', () => {
 
   test('create account test', async ({ page }) => {
   await page.getByRole('link', { name: 'Create account' }).click();
-  await page.getByRole('textbox', { name: 'First Name' }).click();
   await page.getByRole('textbox', { name: 'First Name' }).fill('John');
-  await page.getByRole('textbox', { name: 'First Name' }).press('Tab');
   await page.getByRole('textbox', { name: 'Last Name' }).fill('Sparrow');
-  await page.getByRole('textbox', { name: 'Last Name' }).press('Tab');
   await page.getByRole('textbox', { name: 'Phone number' }).fill('07200000000');
   await page.getByLabel('Country').selectOption('Romania');
-  await page.getByRole('textbox', { name: 'Email address *' }).click();
   await page.getByRole('textbox', { name: 'Email address *' }).fill('somerandommail@gmail.com');
-  await page.getByRole('textbox', { name: 'Password *' }).click();
   await page.getByRole('textbox', { name: 'Password *' }).fill('Superpass.123');
   await page.getByRole('checkbox', { name: 'I agree with the terms and' }).check();
   await page.getByRole('button', { name: 'Create Account' }).click();
