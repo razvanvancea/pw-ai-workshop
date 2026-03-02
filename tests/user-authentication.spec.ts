@@ -7,12 +7,14 @@ test.describe('User authentication test suite', () => {
   });
 
   test('login test', async ({ page }) => {
-    await test.step('Fill login form', async () => {
-      await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
-      await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
-    });
+    await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
+    await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+
     await page.getByTestId('submitBtn').click();
-    await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
+
+    await test.step('Verify logout link is visible', async () => {
+      await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
+    });
   });
 
   test('logout test', async ({ page }) => {
