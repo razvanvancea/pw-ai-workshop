@@ -15,7 +15,7 @@ export class LoginPage {
     this.logoutBtn = page.getByRole('link', { name: 'Log Out' });
   }
 
-  async doLogin(email: string, password: string) {
+  async login(email: string, password: string) {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
