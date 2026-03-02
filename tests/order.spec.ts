@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('User authentication test suite', () => {
+test.describe('Place order test suite', () => {
   
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('https://tai-shop.razvanvancea.ro');
   });
 
   test('add to cart test', async ({ page }) => {
