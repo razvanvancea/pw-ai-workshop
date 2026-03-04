@@ -1,11 +1,16 @@
 import { test, expect } from '@playwright/test';
 import {faker} from '@faker-js/faker'
   // console.log(faker.internet.email());
-  
+
 test.describe('User authentication test suite', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://tai-shop.razvanvancea.ro');
   });
+
+  // use playwright mcp and open 
+  // https://tai-shop.razvanvancea.ro and
+  //  list visible
+  //  input fields on the login page
 
   // npx playwright codegen https://tai-shop.razvanvancea.ro
   test('login test - codegen', async ({ page }) => {
