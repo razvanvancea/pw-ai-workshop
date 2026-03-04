@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('User authentication test suite', () => {
   test.beforeEach(async ({ page }) => {
@@ -6,10 +7,8 @@ test.describe('User authentication test suite', () => {
   });
 
   test('login test', async ({ page }) => {
-    await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
-
-    await page.getByTestId('submitBtn').click();
+    const loginPage = new LoginPage(page);
+    await loginPage.login('admin@admin.com', 'admin123');
 
     await test.step('Verify logout link is visible', async () => {
       await expect(page.getByRole('link', { name: 'Log Out' })).toBeVisible();
@@ -17,10 +16,9 @@ test.describe('User authentication test suite', () => {
   });
 
   test('logout test', async ({ page }) => {
-    await page.getByRole('textbox', { name: 'Email Address' }).fill('admin@admin.com');
-    await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
-    await page.getByRole('button', { name: 'Sign In' }).click();
-    await page.getByRole('link', { name: 'Log Out' }).click();
+    const loginPage = new LoginPage(page);
+    await loginPage.login('admin@admin.com', 'admin123');
+    await loginPage.logoutBtn.click();
     await expect(page.locator('#loginSection')).toContainText('Welcome back');
   });
 
