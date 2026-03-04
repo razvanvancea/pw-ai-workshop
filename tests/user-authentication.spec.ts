@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { faker } from '@faker-js/faker';
 
 test.describe('User authentication test suite', () => {
   test.beforeEach(async ({ page }) => {
@@ -37,5 +38,13 @@ test.describe('User authentication test suite', () => {
     await expect(page.locator('#message')).toContainText('Success!');
     await expect(page.getByText('Success! Your account has')).toBeVisible();
     await expect(page.getByRole('link', { name: 'Back to Sign In' })).toBeVisible();
+  });
+
+  test('recover password test', async ({ page }) => {
+    const randomEmail = faker.internet.email();
+    await page.getByRole('link', { name: 'Forgot your password?' }).click();
+    await page.getByRole('textbox', { name: 'Email Address' }).fill(randomEmail);
+    await page.getByRole('button', { name: 'Send Reset Link' }).click();
+    await expect(page.locator('#resetMessage')).toContainText('✓ Check your email');
   });
 });
