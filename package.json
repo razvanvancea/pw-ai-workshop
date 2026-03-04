@@ -12,7 +12,8 @@
     "test:smoke": "npx playwright test -g '@smoke'",
     "test": "npx playwright test",
     "format": "npx prettier --write .",
-    "lint": "tsc --noEmit && eslint tests/**"
+    "lint": "tsc --noEmit && eslint tests/**",
+    "codegen": "npx playwright codegen https://tai-shop.razvanvancea.ro"
   },
   "keywords": [],
   "author": "RV",
