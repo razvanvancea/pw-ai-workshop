@@ -12,6 +12,7 @@
     "test:ui": "npx playwright test --ui",
     "test:smoke": "npx playwright test -g '@smoke'",
     "test": "npx playwright test",
+     "test:repeat": "npx playwright test --repeat-each=10",
     "format": "npx prettier --write .",
     "lint": "tsc --noEmit && eslint tests/**"
   },
