@@ -8,6 +8,7 @@
     "test:headed": "npx playwright test --headed",
     "test:debug": "npx playwright test --headed --debug",
     "show:report": "npx playwright show-report",
+    "open:trace": "npx playwright show-trace path/to/trace.zip",
     "test:ui": "npx playwright test --ui",
     "test:smoke": "npx playwright test -g '@smoke'",
     "test": "npx playwright test",
