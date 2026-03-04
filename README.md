@@ -34,3 +34,10 @@ npm install
 ```bash
 npx playwright test
 ```
+
+
+TO BE IGNORED: support file
+short link: https://tinyurl.com/paisupport
+or
+complete link: https://gist.github.com/razvanvancea/515766f8902d3249b89a0a04a71f238a
+
