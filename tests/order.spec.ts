@@ -2,7 +2,7 @@ import { test } from '../fixtures/pages';
 
 test.describe('Order management test suite', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://tai-shop.razvanvancea.ro');
+    await page.goto(process.env.URL);
   });
 
   test('add to cart test @smoke', async ({ loginPage, productPage }) => {

@@ -16,7 +16,7 @@ test.describe('Promo Code / Voucher Discount', () => {
     ); // $45.49
 
     await test.step('Log in and add Calvin Klein CK One ($49.99) to cart', async () => {
-      await page.goto('https://tai-shop.razvanvancea.ro');
+      await page.goto(process.env.URL);
       await loginPage.login('admin@admin.com', 'admin123');
       await page
         .getByRole('link', { name: 'Calvin Klein CK One' })
